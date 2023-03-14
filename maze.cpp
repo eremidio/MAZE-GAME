@@ -170,7 +170,7 @@ maze_wall_number++;
                     };
   
 //Ajustando um grau de dificuldade minimo para o labirinto
-if(maze_wall_number<140)
+if(maze_wall_number<160)
 goto mainloop;
 
 //Condição para que o labirinto tenha sempre uma saída
