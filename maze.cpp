@@ -21,6 +21,7 @@ int i, j;//VARIÁVEIS DE ITERAÇÕES EM LOOPS
 int dig_number;//VARIÁVEL ALEATÓRIA USADA PARA CRIAR O LABIRINTO (0->DIREITA, 1->ESQUERDA, 2->CIMA, 3->BAIXO)
 int maze_x;//COORDENADA X USADA PARA CRIAR O LABIRINTO
 int maze_y;//COORDENADA Y USADA PARA CRIAR O LABIRINTO
+int maze_wall_number;//VARIÁVEL USADA PARA SE CONTABILIZAR O NÚMERO DE PAREDES DO LABIRINTO
 int player_x;//COORDENADA X DO JOGADOR
 int player_y;//COORDENADA Y DO JOGADOR
 int user_input;//CONTROLE DE MOVIMENTO DO JOGADOR
@@ -86,7 +87,7 @@ srand(time(NULL));
 //Ajuste de variáveis
 maze_x=1;//POSIÇÃO INICIAL 
 maze_y=1;//POSIÇÃO INICIAL 
-
+maze_wall_number=0;
 maze[1][0]=" ";
 maze[29][90]=" ";
 //Loop principal
@@ -158,6 +159,20 @@ maze[maze_x][maze_y]=" ";
 if(maze_x==29 && maze_y==89)
 break;
                                };
+
+//Contabilizando o número de paredes do labirinto
+for (i=1; i<30; ++i){
+for (j=1; j<90; ++j){
+if((i%2)==1 || (j%2)==1)
+if(maze[i][j]=="-" || maze[i][j]=="|")
+maze_wall_number++;
+                    };
+                    };
+  
+//Ajustando um grau de dificuldade minimo para o labirinto
+if(maze_wall_number<140)
+goto mainloop;
+
 //Condição para que o labirinto tenha sempre uma saída
 if(maze[28][89]=="-" && maze[29][88]=="|")
 goto mainloop;
