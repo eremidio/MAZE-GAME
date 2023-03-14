@@ -23,6 +23,7 @@ int maze_start_x;//COORDENADA X USADA PARA CRIAR O LABIRINTO
 int maze_start_y;//COORDENADA Y USADA PARA CRIAR O LABIRINTO
 int maze_end_x;//COORDENADA X USADA PARA CRIAR O LABIRINTO
 int maze_end_y;//COORDENADA Y USADA PARA CRIAR O LABIRINTO
+int maze_wall_number;//FUNÇÃO PARA CONTABILIZAR O NÚMERO DE PAREDES DO LABIRINTO
 int player_x;//COORDENADA X DO JOGADOR
 int player_y;//COORDENADA Y DO JOGADOR
 int user_input;//CONTROLE DE MOVIMENTO DO JOGADOR
@@ -73,6 +74,7 @@ void maze_game::dig_maze(){
 //Semente para geração de números aleatórios
 srand(time(NULL));
 //Ajuste de variáveis
+maze_wall_number=0;
 maze_start_x=1;
 maze_start_y=0;
 maze_end_x=29;
@@ -219,8 +221,10 @@ else{
 dig_number=rand()%101;
 if(dig_number>40)
 maze[i][j]=" ";
-else
+else{
+maze_wall_number++;
 continue;
+    };
     };
 
                         };
@@ -228,6 +232,10 @@ continue;
                     };
 
                           };
+//Condição para que o labirinto aprensente um grau minimo de dificuldade
+if(maze_wall_number<50)
+goto mainloop;
+
 //Condição para que o labirinto tenha sempre uma saída
 if(maze[28][89]=="-" && maze[29][88]=="|")
 goto mainloop;
